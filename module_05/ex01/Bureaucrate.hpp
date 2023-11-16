@@ -1,0 +1,44 @@
+#ifndef Bureaucrate_HPP
+#define Bureaucrate_HPP
+
+#include <iostream>
+#include <string>
+#include "Form.hpp"
+
+class Form;
+
+class Bureaucrate
+{
+private:
+    std::string const _name;
+    int _grade;
+    class GradeTooHighException : public std::exception
+    {
+        public :
+            virtual const char* what() const throw(); 
+    };
+    class GradeTooLowException : public std::exception
+    {
+        public :
+            virtual const char* what() const throw(); 
+    };
+protected:
+public:
+    //format canonique
+    Bureaucrate(void);
+    Bureaucrate(std::string name, int grade);
+    Bureaucrate(Bureaucrate const & src);
+    Bureaucrate & operator=(Bureaucrate const & rhs);
+    ~Bureaucrate();
+    
+    //getter
+    std::string getName()const;
+    int getGrade()const;
+    //functions
+    void    decrement_grade();
+    void    increment_grade();
+    void    signForm(Form &form);
+};
+std::ostream & operator<<(std::ostream & o, Bureaucrate const & rhs);
+
+#endif
